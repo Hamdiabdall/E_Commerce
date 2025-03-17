@@ -1,0 +1,56 @@
+name: flutter_app
+description: "A new Flutter project."
+
+# La ligne suivante empêche la publication accidentelle du package sur pub.dev.
+# Cela est préférable pour les packages privés.
+publish_to: 'none' # Supprimez cette ligne si vous souhaitez publier sur pub.dev
+
+# La version et le numéro de build de votre application.
+# Le numéro de version est composé de trois nombres séparés par des points (ex: 1.2.43),
+# suivi d'un numéro de build optionnel séparé par un +.
+version: 1.0.0+1
+
+# Environnement de développement
+environment:
+  sdk: '>=3.6.0 <4.0.0' # Correction : Utilisez une plage de versions pour le SDK
+
+# Dépendances nécessaires pour votre projet
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Ajoute les icônes Cupertino pour un style iOS
+  cupertino_icons: ^1.0.8
+  
+  # Carousel slider
+  lecle_flutter_carousel_pro: ^0.0.1
+
+# Dépendances de développement
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  # Lints recommandés pour de bonnes pratiques de codage
+  flutter_lints: ^5.0.0
+
+# Configuration spécifique à Flutter
+flutter:
+  # Inclut la police Material Icons par défaut
+  uses-material-design: true
+
+  # Ajoutez vos assets (images, polices, etc.) ici
+  assets:
+    - assets/img/
+
+  # Exemple d'ajout de polices personnalisées
+  # fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
