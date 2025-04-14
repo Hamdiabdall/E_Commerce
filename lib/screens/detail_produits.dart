@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/model/class_produit.dart';
-import 'package:flutter_app/screens/liste_des_produits.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_app/e_commerce/provider/cart_provider.dart';
 
 class ProduitDetailScreen extends StatefulWidget {
-  final ClassProduit produit;
-  const ProduitDetailScreen({super.key, required this.produit});
+  const ProduitDetailScreen({super.key});
   @override
   State<ProduitDetailScreen> createState() => _ProduitDetailScreenState();
 }
@@ -15,12 +15,17 @@ class _ProduitDetailScreenState extends State<ProduitDetailScreen> {
   @override
   void initState() {
     super.initState();
-    p = widget.produit;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      p = ModalRoute.of(context)!.settings.arguments as ClassProduit;
+      setState(() {});
+    });
   }
   
 
   @override
   Widget build(BuildContext context) {
+    final cartProvider = Provider.of<CartProvider>(context, listen: false);
+    
     return Scaffold(
       appBar: AppBar(
         title: Text(p.title),
@@ -103,13 +108,22 @@ class _ProduitDetailScreenState extends State<ProduitDetailScreen> {
                       flex: 2,
                       child: ElevatedButton(
                         onPressed: () {
+                          // Add product to cart
+                          cartProvider.ajouterProduit(
+                            p.id,
+                            p.price,
+                            p.title,
+                            p.description,
+                            p.imageUrl,
+                          );
+                          
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: const Text('Added to cart'),
                               action: SnackBarAction(
-                                label: 'OK',
+                                label: 'View Cart',
                                 onPressed: () {
-                                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                                  Navigator.pushNamed(context, '/cart');
                                 },
                               ),
                             ),

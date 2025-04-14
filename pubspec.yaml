@@ -24,6 +24,7 @@ dependencies:
   
   # Carousel slider
   lecle_flutter_carousel_pro: ^0.0.1
+  provider: ^6.1.4
 
 # Dépendances de développement
 dev_dependencies:

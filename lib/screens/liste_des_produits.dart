@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/screens/detail_produits.dart';
 import 'package:flutter_app/model/class_produit.dart';
 
 class ListeProduitsScreen extends StatefulWidget {
@@ -159,12 +158,10 @@ class _ListeProduitsScreenState extends State<ListeProduitsScreen> {
             final produit = produits[index];
             return GestureDetector(
               onTap: () {
-                Navigator.push(
+                Navigator.pushNamed(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        ProduitDetailScreen(produit: produit),
-                  ),
+                  '/detailproduit',
+                  arguments: produit,
                 );
               },
               child: Card(

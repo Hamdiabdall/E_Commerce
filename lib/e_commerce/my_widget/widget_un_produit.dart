@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_app/e_commerce/provider/cart_provider.dart';
 
 class ProduitItem extends StatelessWidget {
   final String id;
@@ -20,11 +22,17 @@ class ProduitItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cartProvider = Provider.of<CartProvider>(context, listen: false);
+    
     return InkWell(
       onTap: () {
-        if (onTap != null) {
-          onTap!();
-        }
+        Navigator.pushNamed(context, '/detailproduit', arguments: ProduitItem(
+          id: id,
+          nom: nom,
+          image: image,
+          prix: prix,
+          description: description
+        ));
       },
       child: Card(
         elevation: 3,
@@ -91,11 +99,25 @@ class ProduitItem extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: 8.0, left: 8.0, right: 8.0),
               child: ElevatedButton(
                 onPressed: () {
-                  // Logique d'ajout au panier
+                  // Ajouter le produit au panier
+                  cartProvider.ajouterProduit(
+                    id,
+                    prix,
+                    nom,
+                    description,
+                    image
+                  );
+                  
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text('$nom ajouté au panier'),
                       duration: const Duration(seconds: 1),
+                      action: SnackBarAction(
+                        label: 'Voir panier',
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/cart');
+                        },
+                      ),
                     ),
                   );
                 },
